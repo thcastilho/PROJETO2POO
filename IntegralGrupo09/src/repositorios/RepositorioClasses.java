@@ -7,6 +7,10 @@ public interface RepositorioClasses {
 
     void atualizar(String nome);
 
+    boolean checarExistencia(String nome);
+
+    Classe retornaClasse(String nome);
+
     void listarClasses();
 
     StringBuilder gerarCodigo();

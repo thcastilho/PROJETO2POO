@@ -1,12 +1,11 @@
 import java.util.Scanner;
 
-import modelo.Atributo;
-import modelo.Classe;
-import repositorios.RepositorioClasses;
-import repositorios.RepositorioClassesImp;
+import modelo.*;
+import repositorios.*;
 
 public class App {
     static RepositorioClasses listaClasses = new RepositorioClassesImp();
+    static RepositorioRelacionamentos listaRelacionamentos = new RepositorioRelacionamentosImp();
     public static void main(String[] args) throws Exception {
         int opcao;
 
@@ -77,9 +76,9 @@ public class App {
         System.out.println("6 - Criar arquivo .puml");
         System.out.println("7 - Abrir arquivo");
         System.out.println("0 - Encerrar programa");
-        System.out.println("--------------------------------");
+        System.out.println("---------------------------------");
     }
-
+        
     private static void criarClasse() {
         Classe classe = new Classe();
 
@@ -87,46 +86,33 @@ public class App {
         classe.setPacote(escanearString());
         System.out.println();
 
-        boolean b = false;
-        do {
-            System.out.printf("Digite o tipo da classe (class, abstract class ou interface): ");
-            String aux = escanearString();
-            if (aux.equals("class") || aux.equals("abstract class") || aux.equals("interface")) {
-                classe.setTipo(aux);
-                b = true;
-            } else System.out.println("Tipo inválido!");
-        }while(!b);
-        System.out.println();
-
         System.out.printf("Digite o nome da classe: ");
         classe.setNome(escanearString());
         System.out.println();
 
-        if (classe.getTipo().equals("class") || classe.getTipo().equals("abstract class")) {
-            int n;
-            System.out.printf("Entre com o número de atributos da classe: ");
-            n = escanearInteiro();
+        int n;
+        System.out.printf("Entre com o número de atributos da classe: ");
+        n = escanearInteiro();
 
-            for(int i = 1; i <= n; i++) {
-                Atributo atributo = new Atributo();
+        for(int i = 1; i <= n; i++) {
+            Atributo atributo = new Atributo();
 
-                System.out.println("-----------" + i + "-----------");
+            System.out.println("-----------" + i + "-----------");
 
-                System.out.printf("Modificador: ");
-                atributo.setModificador(escanearString());
-                //System.out.println();
+            System.out.printf("Modificador: ");
+            atributo.setModificador(escanearString());
+            //System.out.println();
 
-                System.out.printf("Tipo: ");
-                atributo.setTipo(escanearString());
-                //System.out.println();
+            System.out.printf("Tipo: ");
+            atributo.setTipo(escanearString());
+            //System.out.println();
 
-                System.out.printf("Nome: ");
-                atributo.setNome(escanearString());
-                //System.out.println();
+            System.out.printf("Nome: ");
+            atributo.setNome(escanearString());
+            //System.out.println();
 
-                classe.addAtributo(atributo);
-            }
-        }
+            classe.addAtributo(atributo);
+    }
 
         listaClasses.cadastrar(classe);
     }
@@ -135,14 +121,95 @@ public class App {
         listaClasses.listarClasses();
 
         String nome;
-        System.out.printf("Digite o nome da classe que irá ser alterada: ");
-        nome = escanearString();
+        do {
+            System.out.printf("Digite o nome da classe que irá ser alterada: ");
+            nome = escanearString();
+        }while(!listaClasses.checarExistencia(nome));
 
         listaClasses.atualizar(nome);
     }
 
     private static void relacionarClasses() {
-        
+        listaRelacionamentos.listarRelacionamentos();
+        listaClasses.listarClasses();
+
+        String c1, c2;
+        Classe class1, class2;
+        do {
+            System.out.printf("Digite o nome da classe 'pai': ");
+            c1 = escanearString();
+        }while(!listaClasses.checarExistencia(c1));
+
+        class1 = listaClasses.retornaClasse(c1);
+
+        System.out.println();
+
+        do {
+            System.out.printf("Digite o nome da classe 'filho': ");
+            c2 = escanearString();
+        }while(!listaClasses.checarExistencia(c2));
+
+        class2 = listaClasses.retornaClasse(c2);
+
+        System.out.println();
+
+        int opcao = 0;
+        do {
+            System.out.println("Defina o tipo de relacionamento:");
+            System.out.println("\t1 - Herança");
+            System.out.println("\t2 - Composição");
+            System.out.println("\t3 - Agregação");
+            System.out.printf("Opção: ");
+            opcao = escanearInteiro();
+        }while(opcao != 1 && opcao != 2 && opcao != 3);
+
+        String relac = null;
+
+        switch(opcao) {
+            case 1:
+                relac = "Herança";
+                break;
+            
+            case 2:
+                relac = "Composição";
+                break;
+
+            case 3:
+                relac = "Agregação";
+                break;
+        }
+
+        String mult = null;
+
+        if (opcao == 2 || opcao == 3) {
+            opcao = 0;
+
+            do {
+                System.out.println("Defina a multiplicidade do relacionamento:");
+                System.out.println("\t1 - Um para Um");
+                System.out.println("\t2 - Um para Muitos");
+                System.out.println("\t3 - Muitos para Muitos");
+                System.out.printf("Opção: ");
+                opcao = escanearInteiro();
+            }while(opcao != 1 && opcao != 2 && opcao != 3);
+
+            switch(opcao) {
+                case 1:
+                    mult = "1 : 1";
+                    break;
+                
+                case 2:
+                    mult = "1 : 1..*";
+                    break;
+    
+                case 3:
+                    mult = "1..* : 1..*";
+                    break;
+            }
+        }
+        Relacionamento relacionamento = new Relacionamento(class1, class2, relac, mult);
+
+        listaRelacionamentos.cadastrar(relacionamento);
     }
 
     private static void criarTXT() {

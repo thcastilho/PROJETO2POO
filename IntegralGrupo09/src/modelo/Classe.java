@@ -4,16 +4,14 @@ import java.util.Set;
 
 public class Classe {
     private String pacote;
-    private String tipo;
     private String nome;
     private Set<Atributo> listaAtributos = new HashSet();
 
     public Classe() {
     }
 
-    public Classe(String pacote, String tipo, String nome, Set<Atributo> listaAtributos) {
+    public Classe(String pacote, String nome, Set<Atributo> listaAtributos) {
         this.pacote = pacote;
-        this.tipo = tipo;
         this.nome = nome;
         this.listaAtributos = listaAtributos;
     } 
@@ -24,14 +22,6 @@ public class Classe {
 
     public void setPacote(String pacote) {
         this.pacote = pacote;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getNome() {
@@ -58,11 +48,9 @@ public class Classe {
     public String toString() {
         return "{" +
             " pacote='" + getPacote() + "'" +
-            ", tipo='" + getTipo() + "'" +
             ", nome='" + getNome() + "'" +
             ", listaAtributos='" + getListaAtributos() + "'" +
             "}";
     }
     
-
 }

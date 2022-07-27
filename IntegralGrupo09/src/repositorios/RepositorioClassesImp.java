@@ -20,18 +20,18 @@ public class RepositorioClassesImp implements RepositorioClasses {
 
     @Override
     public void cadastrar(Classe classe) {
-        if (listaClasses.contains(classe)) {
-            System.out.println("Classe já criada anteriormente!");
-            return;
-        } else {
-            listaClasses.add(classe);
-            System.out.println("Classe criada com sucesso!");
+        for (Classe c : listaClasses) {
+            if (c.getNome().equals(classe.getNome())) {
+                System.out.println("Ja existe uma classe com esse nome!");
+                return;
+            }
         }
+        listaClasses.add(classe);
+        System.out.println("Classe criada com sucesso!");
     }
 
     @Override
     public void atualizar(String nome) {
-        boolean b = false;
         for (Classe c : listaClasses) {
             if (c.getNome().equals(nome)) {
                 Atributo atributo = new Atributo();
@@ -53,7 +53,7 @@ public class RepositorioClassesImp implements RepositorioClasses {
         }
     }
 
-    private static String escanearString() {
+    private String escanearString() {
         Scanner scanner = new Scanner(System.in);
 
         return scanner.nextLine();
@@ -73,6 +73,26 @@ public class RepositorioClassesImp implements RepositorioClasses {
 
     @Override
     public StringBuilder gerarCodigoUML() {
+        return null;
+    }
+
+    @Override
+    public boolean checarExistencia(String nome) {
+        for (Classe c : listaClasses) {
+            if (c.getNome().equals(nome)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Classe retornaClasse(String nome) {
+        for (Classe c : listaClasses) {
+            if (c.getNome().equals(nome)) {
+                return c;
+            }
+        }
         return null;
     }
     
