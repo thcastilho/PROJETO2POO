@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
+import modelo.Classe;
+
 public class App {
+    
     public static void main(String[] args) throws Exception {
         int opcao;
 
@@ -75,7 +78,26 @@ public class App {
     }
 
     private static void criarClasse() {
-        
+        Classe classe = new Classe();
+
+        System.out.printf("Digite o nome do pacote: ");
+        classe.setPacote(escanearString());
+        System.out.println();
+
+        boolean b = false;
+        do {
+            System.out.println("Digite o tipo da classe (class, abstract class ou interface): ");
+            String aux = escanearString();
+            if (aux.equals("class") || aux.equals("abstract class") || aux.equals("interface")) {
+                b = true;
+            }
+
+
+        }while(!b);
+
+        System.out.printf("Digite o nome da classe: ");
+        classe.setNome(escanearString());
+        System.out.println();
     }
 
     private static void addAtributo() {
