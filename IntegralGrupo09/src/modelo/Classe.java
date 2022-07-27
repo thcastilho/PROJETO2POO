@@ -4,14 +4,14 @@ import java.util.Set;
 
 public class Classe {
     private String pacote;
-    private Tipo tipo;
+    private String tipo;
     private String nome;
     private Set<Atributo> listaAtributos = new HashSet();
 
     public Classe() {
     }
 
-    public Classe(String pacote, Tipo tipo, String nome, Set<Atributo> listaAtributos) {
+    public Classe(String pacote, String tipo, String nome, Set<Atributo> listaAtributos) {
         this.pacote = pacote;
         this.tipo = tipo;
         this.nome = nome;
@@ -26,11 +26,11 @@ public class Classe {
         this.pacote = pacote;
     }
 
-    public Tipo getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(Tipo tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

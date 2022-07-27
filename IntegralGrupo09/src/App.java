@@ -1,9 +1,12 @@
 import java.util.Scanner;
 
+import modelo.Atributo;
 import modelo.Classe;
+import repositorios.RepositorioClasses;
+import repositorios.RepositorioClassesImp;
 
 public class App {
-    
+    static RepositorioClasses listaClasses = new RepositorioClassesImp();
     public static void main(String[] args) throws Exception {
         int opcao;
 
@@ -86,22 +89,56 @@ public class App {
 
         boolean b = false;
         do {
-            System.out.println("Digite o tipo da classe (class, abstract class ou interface): ");
+            System.out.printf("Digite o tipo da classe (class, abstract class ou interface): ");
             String aux = escanearString();
             if (aux.equals("class") || aux.equals("abstract class") || aux.equals("interface")) {
+                classe.setTipo(aux);
                 b = true;
-            }
-
-
+            } else System.out.println("Tipo inválido!");
         }while(!b);
+        System.out.println();
 
         System.out.printf("Digite o nome da classe: ");
         classe.setNome(escanearString());
         System.out.println();
+
+        if (classe.getTipo().equals("class") || classe.getTipo().equals("abstract class")) {
+            int n;
+            System.out.printf("Entre com o número de atributos da classe: ");
+            n = escanearInteiro();
+
+            for(int i = 1; i <= n; i++) {
+                Atributo atributo = new Atributo();
+
+                System.out.println("-----------" + i + "-----------");
+
+                System.out.printf("Modificador: ");
+                atributo.setModificador(escanearString());
+                //System.out.println();
+
+                System.out.printf("Tipo: ");
+                atributo.setTipo(escanearString());
+                //System.out.println();
+
+                System.out.printf("Nome: ");
+                atributo.setNome(escanearString());
+                //System.out.println();
+
+                classe.addAtributo(atributo);
+            }
+        }
+
+        listaClasses.cadastrar(classe);
     }
 
     private static void addAtributo() {
-        
+        listaClasses.listarClasses();
+
+        String nome;
+        System.out.printf("Digite o nome da classe que irá ser alterada: ");
+        nome = escanearString();
+
+        listaClasses.atualizar(nome);
     }
 
     private static void relacionarClasses() {

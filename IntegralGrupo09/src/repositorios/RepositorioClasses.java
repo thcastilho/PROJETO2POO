@@ -5,9 +5,11 @@ import modelo.Classe;
 public interface RepositorioClasses {
     void cadastrar(Classe classe);
 
-    void atualizar(Classe classe);
+    void atualizar(String nome);
 
-    void gerarCodigo();
+    void listarClasses();
 
-    void gerarCodigoUML();
+    StringBuilder gerarCodigo();
+
+    StringBuilder gerarCodigoUML();
 }
