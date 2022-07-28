@@ -12,8 +12,4 @@ public interface RepositorioClasses {
     Classe retornaClasse(String nome);
 
     void listarClasses();
-
-    StringBuilder gerarCodigo();
-
-    StringBuilder gerarCodigoUML();
 }

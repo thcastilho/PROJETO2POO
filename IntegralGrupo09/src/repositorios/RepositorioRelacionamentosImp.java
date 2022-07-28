@@ -8,6 +8,14 @@ import modelo.Relacionamento;
 public class RepositorioRelacionamentosImp implements RepositorioRelacionamentos{
     private static Set<Relacionamento> listaRelacionamentos = new HashSet<>();
     
+    public static Set<Relacionamento> getListaRelacionamentos() {
+        return listaRelacionamentos;
+    }
+
+    public static void setListaRelacionamentos(Set<Relacionamento> listaRelacionamentos) {
+        RepositorioRelacionamentosImp.listaRelacionamentos = listaRelacionamentos;
+    }
+
     @Override
     public void cadastrar(Relacionamento relacionamento) {
         if(listaRelacionamentos.contains(relacionamento)) {

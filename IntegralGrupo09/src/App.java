@@ -4,8 +4,8 @@ import modelo.*;
 import repositorios.*;
 
 public class App {
-    static RepositorioClasses listaClasses = new RepositorioClassesImp();
-    static RepositorioRelacionamentos listaRelacionamentos = new RepositorioRelacionamentosImp();
+    static RepositorioClassesImp listaClasses = new RepositorioClassesImp();
+    static RepositorioRelacionamentosImp listaRelacionamentos = new RepositorioRelacionamentosImp();
     public static void main(String[] args) throws Exception {
         int opcao;
 
@@ -213,7 +213,63 @@ public class App {
     }
 
     private static void criarTXT() {
-        
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("@startuml\n").append("title Exemplo\n");
+        for (Classe c : RepositorioClassesImp.getListaClasses()) {
+            sb.append("class " + c.getNome()).append(" {").append("\n");
+            for (Atributo a : c.getListaAtributos()) {
+                switch(a.getModificador()) {
+                    case "public": 
+                        sb.append("- ").append(a.getTipo() + " ").append(a.getNome() + "\n");
+                        break;
+
+                    case "private":
+                        sb.append("+ ").append(a.getTipo() + " ").append(a.getNome() + "\n");
+                        break;
+
+                    case "protected":
+                        sb.append("# ").append(a.getTipo() + " ").append(a.getNome() + "\n");
+                        break;
+                }
+            }
+            sb.append("+ " + c.getNome() + "()\n").append("}\n\n");
+        }
+
+        for (Relacionamento r : RepositorioRelacionamentosImp.getListaRelacionamentos()) {
+            sb.append(r.getClassePai().getNome() + " ");
+
+            switch(r.getRelacao()) {
+                case "Herança":
+                    sb.append("<|-- ");
+                    break;
+
+                case "Composição":
+                    if(r.getMultiplicidade() == "1 : 1" || r.getMultiplicidade() == "1 : 1..*") {
+                        sb.append("\"1\"").append(" ");
+                    } else sb.append("\"1..*\"").append(" ");
+                    sb.append("*-- ");
+                    if(r.getMultiplicidade() == "1 : 1") {
+                        sb.append("\"1\"").append(" ");
+                    } else sb.append("\"1..*\"").append(" ");
+                    break;
+
+                case "Agregação":
+                    if(r.getMultiplicidade() == "1 : 1" || r.getMultiplicidade() == "1 : 1..*") {
+                        sb.append("\"1\"").append(" ");
+                    } else sb.append("\"1..*\"").append(" ");
+                    sb.append("o-- ");
+                    if(r.getMultiplicidade() == "1 : 1") {
+                        sb.append("\"1\"").append(" ");
+                    } else sb.append("\"1..*\"").append(" ");
+                    break;
+            }
+            
+            sb.append(r.getClasseFilho().getNome()).append("\n");
+        }
+        sb.append("@enduml");
+
+        System.out.println(sb.toString());
     }
 
     private static void criarJSON() {

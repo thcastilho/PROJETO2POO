@@ -67,16 +67,6 @@ public class RepositorioClassesImp implements RepositorioClasses {
     }
 
     @Override
-    public StringBuilder gerarCodigo() {
-        return null;
-    }
-
-    @Override
-    public StringBuilder gerarCodigoUML() {
-        return null;
-    }
-
-    @Override
     public boolean checarExistencia(String nome) {
         for (Classe c : listaClasses) {
             if (c.getNome().equals(nome)) {
