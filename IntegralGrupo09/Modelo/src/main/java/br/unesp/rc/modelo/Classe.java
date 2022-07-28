@@ -46,11 +46,11 @@ public class Classe {
 
     @Override
     public String toString() {
-        return "{" +
+        return "[" +
             " pacote='" + getPacote() + "'" +
             ", nome='" + getNome() + "'" +
             ", listaAtributos='" + getListaAtributos() + "'" +
-            "}";
+            "]";
     }
     
 }

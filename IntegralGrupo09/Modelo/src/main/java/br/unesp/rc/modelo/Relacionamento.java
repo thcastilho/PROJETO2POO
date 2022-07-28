@@ -50,12 +50,12 @@ public class Relacionamento {
 
     @Override
     public String toString() {
-        return "{" +
+        return "[" +
             " classePai='" + getClassePai().getNome() + "'" +
             ", classeFilho='" + getClasseFilho().getNome() + "'" +
             ", relacao='" + getRelacao() + "'" +
             ", multiplicidade='" + getMultiplicidade() + "'" +
-            "}";
+            "]";
     }
 
 }

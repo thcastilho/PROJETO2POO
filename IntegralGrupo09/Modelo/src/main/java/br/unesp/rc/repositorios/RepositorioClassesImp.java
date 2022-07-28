@@ -85,5 +85,13 @@ public class RepositorioClassesImp implements RepositorioClasses {
         }
         return null;
     }
+
+
+    @Override
+    public String toString() {
+        return "{" + getListaClasses() +
+            "}";
+    }
+
     
 }

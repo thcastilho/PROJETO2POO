@@ -39,11 +39,11 @@ public class Atributo {
 
     @Override
     public String toString() {
-        return "{" +
+        return "[" +
             " modificador='" + getModificador() + "'" +
             ", tipo='" + getTipo() + "'" +
             ", nome='" + getNome() + "'" +
-            "}";
+            "]";
     }
 
 

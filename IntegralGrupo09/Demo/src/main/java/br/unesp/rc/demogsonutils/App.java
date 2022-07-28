@@ -8,6 +8,7 @@ import br.unesp.rc.modelo.Relacionamento;
 import br.unesp.rc.repositorios.RepositorioClassesImp;
 import br.unesp.rc.repositorios.RepositorioRelacionamentosImp;
 import br.unesp.rc.arquivoutils.ArquivoUtils;
+import br.unesp.rc.gsonutils.utils.GsonUtils;
 
 public class App {
     static RepositorioClassesImp listaClasses = new RepositorioClassesImp();
@@ -279,14 +280,23 @@ public class App {
     }
 
     private static void criarJSON() {
-        String json = criaTexto();
+        String json = "{";
+        for (Classe c : RepositorioClassesImp.getListaClasses()) {
+            String aux = GsonUtils.objetoToXML(c);
+            //System.out.println("antes do replace: " + aux);
+            String aux2 = aux.substring(1, aux.length() - 1);
+            //System.out.println("depois do replace: " + aux2);
+            json = json + aux2 + ",";
+        }
+        json = json.substring(0, json.length() - 1);
+        json = json + "}";
+        System.out.println(json);
         System.out.println(ArquivoUtils.salvar("", "Exemplo.json", json));
     }
 
     private static void criarPUML() {
-        
-
-
+        String puml = criaTexto();
+        System.out.println(ArquivoUtils.salvar("", "Exemplo.puml", puml));
         
     }
 
