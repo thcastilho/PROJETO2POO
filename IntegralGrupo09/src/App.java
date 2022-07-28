@@ -101,15 +101,12 @@ public class App {
 
             System.out.printf("Modificador: ");
             atributo.setModificador(escanearString());
-            //System.out.println();
 
             System.out.printf("Tipo: ");
             atributo.setTipo(escanearString());
-            //System.out.println();
 
             System.out.printf("Nome: ");
             atributo.setNome(escanearString());
-            //System.out.println();
 
             classe.addAtributo(atributo);
     }
@@ -216,9 +213,14 @@ public class App {
         StringBuilder sb = new StringBuilder();
 
         sb.append("@startuml\n").append("title Exemplo\n");
+
         for (Classe c : RepositorioClassesImp.getListaClasses()) {
+            sb.append("package " + c.getPacote() + " {\n").append("\tclass " + c.getNome()).append("\n}\n\n");
+
             sb.append("class " + c.getNome()).append(" {").append("\n");
+
             for (Atributo a : c.getListaAtributos()) {
+
                 switch(a.getModificador()) {
                     case "public": 
                         sb.append("- ").append(a.getTipo() + " ").append(a.getNome() + "\n");
@@ -232,8 +234,10 @@ public class App {
                         sb.append("# ").append(a.getTipo() + " ").append(a.getNome() + "\n");
                         break;
                 }
+
             }
             sb.append("+ " + c.getNome() + "()\n").append("}\n\n");
+
         }
 
         for (Relacionamento r : RepositorioRelacionamentosImp.getListaRelacionamentos()) {
@@ -245,23 +249,15 @@ public class App {
                     break;
 
                 case "Composição":
-                    if(r.getMultiplicidade() == "1 : 1" || r.getMultiplicidade() == "1 : 1..*") {
-                        sb.append("\"1\"").append(" ");
-                    } else sb.append("\"1..*\"").append(" ");
+                    sb.append("\"").append(r.getMultiplicidade().substring(0, r.getMultiplicidade().indexOf(" :"))).append("\"").append(" ");
                     sb.append("*-- ");
-                    if(r.getMultiplicidade() == "1 : 1") {
-                        sb.append("\"1\"").append(" ");
-                    } else sb.append("\"1..*\"").append(" ");
+                    sb.append("\"").append(r.getMultiplicidade().substring(r.getMultiplicidade().indexOf(": ")+2)).append("\"").append(" ");
                     break;
 
                 case "Agregação":
-                    if(r.getMultiplicidade() == "1 : 1" || r.getMultiplicidade() == "1 : 1..*") {
-                        sb.append("\"1\"").append(" ");
-                    } else sb.append("\"1..*\"").append(" ");
+                    sb.append("\"").append(r.getMultiplicidade().substring(0, r.getMultiplicidade().indexOf(" :"))).append("\"").append(" ");
                     sb.append("o-- ");
-                    if(r.getMultiplicidade() == "1 : 1") {
-                        sb.append("\"1\"").append(" ");
-                    } else sb.append("\"1..*\"").append(" ");
+                    sb.append("\"").append(r.getMultiplicidade().substring(r.getMultiplicidade().indexOf(": ")+2)).append("\"").append(" ");
                     break;
             }
             
