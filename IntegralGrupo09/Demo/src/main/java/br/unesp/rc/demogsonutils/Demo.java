@@ -10,7 +10,7 @@ import br.unesp.rc.repositorios.RepositorioRelacionamentosImp;
 import br.unesp.rc.arquivoutils.ArquivoUtils;
 import br.unesp.rc.gsonutils.utils.GsonUtils;
 
-public class App {
+public class Demo {
     static RepositorioClassesImp listaClasses = new RepositorioClassesImp();
     static RepositorioRelacionamentosImp listaRelacionamentos = new RepositorioRelacionamentosImp();
     public static void main(String[] args) throws Exception {
@@ -107,7 +107,7 @@ public class App {
             do {
                 System.out.printf("Modificador: ");
                 atributo.setModificador(escanearString());
-            }while(atributo.getModificador() != "public" && atributo.getModificador() != "private" && atributo.getModificador() != "protected");
+            }while(!atributo.getModificador().equals("private") && !atributo.getModificador().equals("public") && !atributo.getModificador().equals("private"));
 
             System.out.printf("Tipo: ");
             atributo.setTipo(escanearString());
@@ -285,9 +285,7 @@ public class App {
         String json = "{";
         for (Classe c : RepositorioClassesImp.getListaClasses()) {
             String aux = GsonUtils.objetoToXML(c);
-            //System.out.println("antes do replace: " + aux);
             String aux2 = aux.substring(1, aux.length() - 1);
-            //System.out.println("depois do replace: " + aux2);
             json = json + aux2 + ",";
         }
         json = json.substring(0, json.length() - 1);
