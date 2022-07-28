@@ -1,0 +1,25 @@
+@startuml
+title Exemplo
+package modelo {
+	class Carro
+}
+
+class Carro {
++ String placa
++ String nome
++ String marca
++ Carro()
+}
+
+package modelo {
+	class Motorista
+}
+
+class Motorista {
++ int idade
++ String nome
++ Motorista()
+}
+
+Carro "1" o-- "1" Motorista
+@enduml
