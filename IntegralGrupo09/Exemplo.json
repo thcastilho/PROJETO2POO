@@ -1,1 +1,0 @@
-{"pacote":"modelo","nome":"Animal","listaAtributos":[{"modificador":"private","tipo":"String","nome":"especie"},{"modificador":"protected","tipo":"double","nome":"comprimento"}],"pacote":"modelo","nome":"Carro","listaAtributos":[{"modificador":"private","tipo":"String","nome":"placa"},{"modificador":"public","tipo":"String","nome":"nome"}]}

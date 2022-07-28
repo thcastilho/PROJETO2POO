@@ -277,7 +277,7 @@ public class Demo {
 
     private static void criarTXT() {
         String txt = criaTexto();
-        System.out.println(ArquivoUtils.salvar("", "Exemplo.txt", txt));
+        System.out.println(ArquivoUtils.salvar("..//", "Exemplo.txt", txt));
 
     }
 
@@ -302,7 +302,7 @@ public class Demo {
 
     private static void abrirArquivo() {
         System.out.println("Digite o nome do arquivo que deseja abrir: ");
-        String arquivo = escanearString();
+        String arquivo = "..//" + escanearString();
 
         System.out.println(ArquivoUtils.leitura(arquivo)); 
     }
