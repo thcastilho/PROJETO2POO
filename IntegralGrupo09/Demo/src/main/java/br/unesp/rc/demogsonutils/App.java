@@ -50,7 +50,7 @@ public class App {
                     break;
 
                 case 0:
-                    encerrarPrograma();
+                    System.out.println("Encerrando programa...");
                     break;
 
                 default:
@@ -104,8 +104,10 @@ public class App {
 
             System.out.println("-----------" + i + "-----------");
 
-            System.out.printf("Modificador: ");
-            atributo.setModificador(escanearString());
+            do {
+                System.out.printf("Modificador: ");
+                atributo.setModificador(escanearString());
+            }while(atributo.getModificador() != "public" && atributo.getModificador() != "private" && atributo.getModificador() != "protected");
 
             System.out.printf("Tipo: ");
             atributo.setTipo(escanearString());
@@ -301,10 +303,9 @@ public class App {
     }
 
     private static void abrirArquivo() {
-        
-    }
+        System.out.println("Digite o nome do arquivo que deseja abrir: ");
+        String arquivo = escanearString();
 
-    private static void encerrarPrograma() {
-        
+        System.out.println(ArquivoUtils.leitura(arquivo)); 
     }
 }
