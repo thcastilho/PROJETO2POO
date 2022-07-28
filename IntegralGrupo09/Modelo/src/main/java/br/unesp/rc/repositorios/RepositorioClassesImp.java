@@ -39,7 +39,7 @@ public class RepositorioClassesImp implements RepositorioClasses {
                 do {
                     System.out.printf("Modificador: ");
                     atributo.setModificador(escanearString());
-                }while(!atributo.getModificador().equals("private") && !atributo.getModificador().equals("public") && !atributo.getModificador().equals("private"));    
+                }while(!atributo.getModificador().equals("private") && !atributo.getModificador().equals("public") && !atributo.getModificador().equals("protected"));    
 
                 System.out.printf("Tipo: ");
                 atributo.setTipo(escanearString());
